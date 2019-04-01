@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .models import Post
+from users.models import Grade
 posts = [
     {
         'author': 'CoreyMS',
@@ -19,8 +19,8 @@ posts = [
 @login_required
 def home(request):
     context = {
-        'posts': Post.objects.all(),
-        'title': 'homepage'
+        'grades': Grade.objects.all(),
+        'title': 'gradepage'
     }
     return render(request, 'app_main/home.html', context)
 
