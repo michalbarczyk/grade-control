@@ -28,7 +28,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=128)),
                 ('date', models.DateTimeField(default=django.utils.timezone.now)),
-                ('course', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='users.Course')),
+                ('course', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='system.Course')),
             ],
         ),
         migrations.CreateModel(
@@ -36,7 +36,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('grade', models.CharField(max_length=4)),
-                ('event', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='users.Event')),
+                ('event', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='system.Event')),
             ],
         ),
         migrations.CreateModel(
@@ -56,16 +56,16 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='grade',
             name='owner',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='users.Student'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='system.Student'),
         ),
         migrations.AddField(
             model_name='course',
             name='author',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='users.Teacher'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='system.Teacher'),
         ),
         migrations.AddField(
             model_name='course',
             name='students',
-            field=models.ManyToManyField(to='users.Student'),
+            field=models.ManyToManyField(to='system.Student'),
         ),
     ]
