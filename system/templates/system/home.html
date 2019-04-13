@@ -1,16 +1,21 @@
 {% extends "system/base.html" %}
 {% block content %}
-    {% for grade in grades %}
-        <article class="media content-section">
-          <div class="media-body">
-            <div class="article-metadata">
-              <a class="mr-2" href="#">{{ grade.event.course }}</a>
-              <small class="text-muted">{{ grade.event.date|date:"F d, Y" }}</small>
-            </div>
-            <h2><a class="article-title" href="#">{{ grade.grade }}</a></h2>
-            <p class="article-content">{{ grade.owner }}</p>
-            <p class="article-content">{{ grade.event }}</p>
-          </div>
-        </article>
-    {% endfor %}
+    <div class="article-metadata">
+        <h1>Grade control</h1>
+    </div>
+    <div class="media-body">
+        <p class="article-content">Welcome to your grade control panel. You are logged in as <b>{{ user.username }}</b>.</p>
+
+    </div>
+<!--    <article class="media content-section">-->
+<!--      <div class="media-body">-->
+<!--        <div class="article-metadata">-->
+<!--          <a class="mr-2" href="#">tekst1</a>-->
+<!--          <small class="text-muted">text2</small>-->
+<!--        </div>-->
+<!--        <h2><a class="article-title" href="#">text3</a></h2>-->
+<!--        <p class="article-content">4</p>-->
+<!--        <p class="article-content">5</p>-->
+<!--      </div>-->
+<!--    </article>-->
 {% endblock content %}

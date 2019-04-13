@@ -28,3 +28,11 @@ def home(request):
         'title': 'gradepage'
     }
     return render(request, 'system/home.html', context)
+
+@login_required
+def overview(request):
+    context = {
+        'grades': Grade.objects.all(),
+        'title': 'gradepage'
+    }
+    return render(request, 'system/overview.html', context)

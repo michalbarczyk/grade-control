@@ -1,0 +1,16 @@
+{% extends "system/base.html" %}
+{% block content %}
+    {% for grade in grades %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ grade.event.course }}</a>
+              <small class="text-muted">{{ grade.event.date|date:"F d, Y" }}</small>
+            </div>
+            <h2><a class="article-title" href="#">{{ grade.grade }}</a></h2>
+            <p class="article-content">{{ grade.owner }}</p>
+            <p class="article-content">{{ grade.event }}</p>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}
