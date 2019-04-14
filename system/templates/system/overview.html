@@ -1,5 +1,24 @@
-{% extends "system/base.html" %}
+{% extends "system/base_main.html" %}
 {% block content %}
+    <div class="article-metadata">
+        <h1>Your groups</h1>
+    </div>
+    <div class="media-body">
+        {% if groups %}
+            <p class="article-content">Here you can see groups you are enrolled to: {% for group in groups %}{{ group }}{% endfor %}
+            </p>
+        {% else %}
+            <p class="article-content">Currently you do not belong to any group.</p>
+            <p class="article-content">
+                If you are a student
+                <a class="mr-2" href="#">apply to a course.</a>
+            </p>
+            <p class="article-content">
+                If you are a teacher
+                <a class="mr-2" href="#">create your first course.</a>
+            </p>
+        {% endif %}
+    </div>
     {% for grade in grades %}
         <article class="media content-section">
           <div class="media-body">

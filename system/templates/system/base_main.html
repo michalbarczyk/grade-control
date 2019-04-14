@@ -1,0 +1,35 @@
+{% extends "system/base_navbar.html" %}
+{% block base_main %}
+    {% if sidebar %}
+        {% with class_name="col-md-8" %}
+            <div class="{{ class_name }}">
+        {% endwith %}
+    {% else %}
+        {% with class_name="col-md-12" %}
+            <div class="{{ class_name }}">
+        {% endwith %}
+    {% endif %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    {% block content %}{% endblock %}
+    </div>
+    {% if sidebar and groups %}
+        <div class="col-md-4">
+          <div class="content-section">
+
+              <ul class="list-group">
+                <li class="list-group-item list-group-item-light">Latest Posts</li>
+                <li class="list-group-item list-group-item-light">Announcements</li>
+                <li class="list-group-item list-group-item-light">Calendars</li>
+                <li class="list-group-item list-group-item-light">etc</li>
+              </ul>
+
+          </div>
+        </div>
+    {% endif %}
+{% endblock base_main %}

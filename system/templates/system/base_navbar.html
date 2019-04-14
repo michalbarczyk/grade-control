@@ -49,7 +49,9 @@
     </header>
 
     <main role="main" class="container">
-        {% block content_outer %}{% endblock %}
+        <div class="row">
+            {% block base_main %}{% endblock %}
+        </div>
     </main>
 
     <!-- Optional JavaScript -->

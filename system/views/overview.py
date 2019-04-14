@@ -11,7 +11,7 @@ def overview(request):
     groups = []
     if student_exists:
         grades = Grade.objects.filter(owner_id=user.id)
-        groups += 'Student'
+        groups.append('Student')
     else:
         grades = None
     context = {
