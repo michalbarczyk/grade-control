@@ -12,6 +12,10 @@ ul {
   margin: 0;
 }
 
+button:focus {
+      outline: none;
+}
+
 .bg-steel {
   background-color: #5f788a;
 }
@@ -37,7 +41,6 @@ ul {
 }
 
 .tag-buttons {
-  background: #ffffff;
   padding: 5px 5px;
   border: 1px solid #dddddd;
   border-radius: 3px;
@@ -58,6 +61,11 @@ a.article-title:hover {
   white-space: pre-line;
 }
 
+.sidebar-footer {
+  margin-top: 60px;
+  white-space: pre-line;
+}
+
 .article-img {
   height: 65px;
   width: 65px;
@@ -67,6 +75,12 @@ a.article-title:hover {
 .article-metadata {
   padding-bottom: 1px;
   margin-bottom: 4px;
+  border-bottom: 1px solid #e3e3e3
+}
+
+.page-metadata {
+  padding-bottom: 1px;
+  margin-bottom: 50px;
   border-bottom: 1px solid #e3e3e3
 }
 

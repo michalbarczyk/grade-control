@@ -5,7 +5,7 @@ from system.models import Grade, Student, Teacher
 
 
 @login_required
-def overview(request):
+def manage_groups(request):
     user = request.user
     student_exists = Student.objects.filter(user=user.id).exists()
     teacher_exists = Teacher.objects.filter(user=user.id).exists()
@@ -29,6 +29,6 @@ def overview(request):
         'grades': grades,
         'student_str': student_str,
         'teacher_str': teacher_str,
-        'title': 'Overview'
+        'title': 'Manage your groups'
     }
-    return render(request, 'system/overview.html', context)
+    return render(request, 'system/manage_groups.html', context)

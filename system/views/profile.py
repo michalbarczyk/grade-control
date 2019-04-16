@@ -5,6 +5,6 @@ from django.shortcuts import render
 @login_required
 def profile(request):
     context = {
-        'title': 'profile'
+        'title': 'Profile'
     }
     return render(request, 'system/profile.html', context)

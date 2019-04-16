@@ -1,8 +1,5 @@
 {% extends "system/base_main.html" %}
 {% block content %}
-    <div class="article-metadata">
-        <h1>Overview</h1>
-    </div>
     <div class="media-body">
         {% if groups %}
             <div class="article-content">Please select an option from a sidebar.
@@ -10,8 +7,7 @@
         {% else %}
             <div class="article-content">Currently you do not belong to any group.
 
-                If you are a student <a class="mr-2" href="#">apply to a course.</a>
-                If you are a teacher <a class="mr-2" href="#">create your first course.</a>
+                <a class="mr-2" href="{% url 'manage_groups' %}">Manage my groups</a>
             </div>
         {% endif %}
     </div>
