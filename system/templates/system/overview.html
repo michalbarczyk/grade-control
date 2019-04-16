@@ -1,13 +1,12 @@
 {% extends "system/base_main.html" %}
 {% block content %}
     <div class="article-metadata">
-        <h1>Your groups</h1>
+        <h1>Overview</h1>
     </div>
     <div class="media-body">
         {% if groups %}
-            <p class="article-content" style="display:inline">Here you can see groups you are enrolled to:
-            <article class="media content-section">{% for group in groups %}{{ group }}{% endfor %}</article>
-            </p>
+            <div class="article-content">Please select an option from a sidebar.
+            </div>
         {% else %}
             <div class="article-content">Currently you do not belong to any group.
 

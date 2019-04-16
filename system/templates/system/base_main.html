@@ -20,16 +20,23 @@
     </div>
     {% if sidebar and groups %}
         <div class="col-md-4">
-          <div class="content-section">
+            <div class="content-section">
+                <ul class="list-group">
+                    {% if "Student" in groups %}
+                        <li class="list-group-item list-group-item-light">Grades</li>
+                        <li class="list-group-item list-group-item-light">Courses{{ student_str }}</li>
+                    {% endif %}
+                    {% if "Teacher" in groups %}
+                        <li class="list-group-item list-group-item-light">Courses{{ teacher_str }}</li>
+                    {% endif %}
+                </ul>
+            <div class="article-content">
+                        <p class="article-content" style="display:inline">Your groups:
+                {% for group in groups %}<button class="tag-buttons">{{ group }}</button>{% endfor %}
+            </p>
+            </div>
+            </div>
 
-              <ul class="list-group">
-                <li class="list-group-item list-group-item-light">Latest Posts</li>
-                <li class="list-group-item list-group-item-light">Announcements</li>
-                <li class="list-group-item list-group-item-light">Calendars</li>
-                <li class="list-group-item list-group-item-light">etc</li>
-              </ul>
-
-          </div>
         </div>
     {% endif %}
 {% endblock base_main %}

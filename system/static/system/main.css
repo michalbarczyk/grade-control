@@ -36,6 +36,15 @@ ul {
   margin-bottom: 20px;
 }
 
+.tag-buttons {
+  background: #ffffff;
+  padding: 5px 5px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+  margin-left: 5px;
+}
+
 .article-title {
   color: #444444;
 }
