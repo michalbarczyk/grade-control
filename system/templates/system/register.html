@@ -1,4 +1,4 @@
-{% extends "app_main/base.html" %}
+{% extends "system/base_main.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
     <div class="content-section">
@@ -6,19 +6,19 @@
             {% csrf_token %}
             <fieldset class="form-group">
                 <legend class="border-bottom mb-4">
-                    Log In
+                    Join Today
                 </legend>
                 {{ form|crispy }}
             </fieldset>
             <div class="form-group">
                 <button class="btn btn-outline-info" type="submit">
-                    Login
+                    Sign Up
                 </button>
             </div>
         </form>
         <div class="border-top pt-3">
             <small class="text-muted">
-                Need An Account? <a class="ml-2" href="{% url 'register' %}">Sign Up Now</a>
+                Already Have An Account? <a class="ml-2" href="{% url 'login' %}">Sign In</a>
             </small>
         </div>
     </div>

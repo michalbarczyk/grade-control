@@ -1,5 +1,16 @@
-{% extends "app_main/base.html" %}
+{% extends "system/base_main.html" %}
 {% block content %}
+    <div class="media-body">
+        {% if groups %}
+            <div class="article-content">Please select an option from a sidebar.
+            </div>
+        {% else %}
+            <div class="article-content">Currently you do not belong to any group.
+
+                <a class="mr-2" href="{% url 'manage_groups' %}">Manage my groups</a>
+            </div>
+        {% endif %}
+    </div>
     {% for grade in grades %}
         <article class="media content-section">
           <div class="media-body">
@@ -13,4 +24,5 @@
           </div>
         </article>
     {% endfor %}
+
 {% endblock content %}
