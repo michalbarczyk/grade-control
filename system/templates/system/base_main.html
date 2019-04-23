@@ -32,8 +32,8 @@
                         <li class="list-group-item list-group-item-light">Find a course</li>
                     {% endif %}
                     {% if "Teacher" in groups %}
-                        <li class="list-group-item list-group-item-light">My courses{{ teacher_str }}</li>
-                        <li class="list-group-item list-group-item-light">Create new course</li>
+                        <li class="list-group-item list-group-item-light"><a class="mr-2" href="{% url 'teacher_courses' %}">My courses{{ teacher_str }}</a></li>
+                        <li class="list-group-item list-group-item-light"><a class="mr-2" href="{% url 'create_new_course' %}">Create new course</a></li>
                     {% endif %}
                     <li class="list-group-item list-group-item-light">Find a teacher</li>
                     <li class="list-group-item list-group-item-light">Find a student</li>
