@@ -8,9 +8,11 @@
           </div>
         </div>
         <div class="form-group">
-            <button class="btn btn-success" type="submit">
-                Join
-            </button>
+            <form action="{% url 'change_student_status' %}">
+                <button class="{{ button_s.style }}" type="submit" >
+                    {{ button_s.text }}
+                </button>
+            </form>
         </div>
     </div>
     <div>
@@ -21,9 +23,11 @@
           </div>
         </div>
         <div class="form-group">
-            <button class="btn btn-success" type="submit">
-                Join
-            </button>
+            <form action="{% url 'change_teacher_status' %}">
+                <button class="{{ button_t.style }}" type="submit" >
+                    {{ button_t.text }}
+                </button>
+            </form>
         </div>
     </div>
 
