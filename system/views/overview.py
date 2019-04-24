@@ -7,15 +7,24 @@ from system.models import Grade, Student, Teacher
 @login_required
 def overview(request):
     user = request.user
-    student_exists = Student.objects.filter(user=user.id).exists()
-    teacher_exists = Teacher.objects.filter(user=user.id).exists()
-    groups = []
-    if student_exists:
+    if student_exists(user):
         grades = Grade.objects.filter(owner_id=user.id)
-        groups.append('Student')
     else:
         grades = None
-    if teacher_exists:
+
+    context = {
+        'grades': grades,
+        'title': 'Overview'
+    }
+    context.update(append_sidebar(user))
+    return render(request, 'system/overview.html', context)
+
+
+def append_sidebar(user):
+    groups = []
+    if student_exists(user):
+        groups.append('Student')
+    if teacher_exists(user):
         groups.append('Teacher')
 
     student_str = ''
@@ -23,12 +32,12 @@ def overview(request):
     if len(groups) > 1:
         student_str = ' (I learn)'
         teacher_str = ' (I teach)'
-    context = {
-        'sidebar': True,
-        'groups': groups,
-        'grades': grades,
-        'student_str': student_str,
-        'teacher_str': teacher_str,
-        'title': 'Overview'
-    }
-    return render(request, 'system/overview.html', context)
+
+    return {'student_str': student_str, 'teacher_str': teacher_str, 'groups': groups, 'sidebar': True}
+
+
+def student_exists(user):
+    return Student.objects.filter(user=user.id).exists()
+
+def teacher_exists(user):
+    return Teacher.objects.filter(user=user.id).exists()
