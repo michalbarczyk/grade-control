@@ -1,6 +1,7 @@
-from django.views.generic import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+from django.views.generic import CreateView
 
 from system.models import Teacher, Course
 from system.views import append_sidebar
@@ -17,6 +18,12 @@ class CourseCreateView(LoginRequiredMixin, CreateView):
         return context
 
     def form_valid(self, form):
+        teacher = Teacher.objects.filter(user=self.request.user).first()
         obj = form.save(commit=False)
-        obj.author = Teacher.objects.filter(user=self.request.user).first()
-        return super().form_valid(form)
+        obj.author = teacher
+        obj.save()
+        # return super().form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse('teacher_courses')
