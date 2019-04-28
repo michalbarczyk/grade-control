@@ -18,7 +18,9 @@
     {% endif %}
     {% if title %}
         <div class="page-metadata">
+            <div class="page-title">
                 <h1>{{ title }}</h1>
+            </div>
         </div>
     {% endif %}
     {% block content %}{% endblock %}
@@ -39,14 +41,14 @@
                     <li class="list-group-item list-group-item-light">Find a student</li>
                     <li class="list-group-item list-group-item-light"><a class="mr-2" href="{% url 'manage_groups' %}">Manage my groups</a></li>
                 </ul>
-            <div class="sidebar-footer">
-                <p class="article-content" style="display:inline">
-                    {% if groups %}
-                        {% for group in groups %}<button class="tag-buttons list-group-item-light">{{ group }}</button>{% endfor %}
-                        logged in as: {{ user.username }}
-                    {% endif %}
-                </p>
-            </div>
+                <div class="sidebar-footer">
+                    <p class="article-content" style="display:inline">
+                        {% if groups %}
+                            {% for group in groups %}<button class="tag-buttons list-group-item-light">{{ group }}</button>{% endfor %}
+                            logged in as: {{ user.username }}
+                        {% endif %}
+                    </p>
+                </div>
             </div>
 
         </div>

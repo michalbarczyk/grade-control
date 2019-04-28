@@ -78,10 +78,21 @@ a.article-title:hover {
   border-bottom: 1px solid #e3e3e3
 }
 
+.page-title {
+  padding-bottom: 1px;
+  /*margin-bottom: 50px;*/
+  border-bottom: 1px solid #e3e3e3
+}
+
 .page-metadata {
   padding-bottom: 1px;
   margin-bottom: 50px;
-  border-bottom: 1px solid #e3e3e3
+  /*border-bottom: 1px solid #e3e3e3*/
+}
+
+.page-buttonmenu {
+  padding-bottom: 1px;
+  margin-top: 30px;
 }
 
 .article-metadata a:hover {

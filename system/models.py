@@ -27,7 +27,7 @@ class Course(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('manage_groups')
+        return reverse('course_detail', kwargs={'pk': self.pk})
 
 
 class Event(models.Model):
