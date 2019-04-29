@@ -30,6 +30,7 @@ class Course(models.Model):
         return reverse('course_detail', kwargs={'pk': self.pk})
 
 
+
 class Event(models.Model):
     title = models.CharField(max_length=128)
     date = models.DateTimeField(default=timezone.now)
