@@ -9,7 +9,8 @@ from system.views import append_sidebar
 
 class CourseCreateView(LoginRequiredMixin, CreateView):
     model = Course
-    fields = ['title']
+    # template_name = 'system/course_form.html'
+    fields = ['title', 'description']
 
     def get_context_data(self, *args, **kwargs):
         context = super(CourseCreateView, self).get_context_data(*args, **kwargs)
@@ -38,16 +39,23 @@ class CourseDetailView(LoginRequiredMixin, DetailView):
         return context
 
 
-class TeacherCourseListView(LoginRequiredMixin, ListView):
-    template_name = 'system/teacher_courses.html'
-    context_object_name = 'teacher_courses'
+class CourseListView(LoginRequiredMixin, ListView):
+    model = Course
+    # template_name = 'system/course_list.html'
+    context_object_name = 'courses'
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.type = None
 
     def get_context_data(self, *args, **kwargs):
-        context = super(TeacherCourseListView, self).get_context_data(*args, **kwargs)
+        context = super(CourseListView, self).get_context_data(*args, **kwargs)
         context['title'] = 'Your courses'
         context.update(append_sidebar(self.request.user))
         return context
 
     def get_queryset(self):
+        # type = self.request.session['type']
+        # print(type) TODO
         teacher = Teacher.objects.filter(user=self.request.user).first()
         return Course.objects.filter(author=teacher)

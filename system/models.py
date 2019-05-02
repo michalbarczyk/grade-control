@@ -20,6 +20,7 @@ class Teacher(models.Model):
 
 class Course(models.Model):
     title = models.CharField(max_length=128)
+    description = models.CharField(max_length=4000, default='')
     author = models.ForeignKey(Teacher, on_delete=models.CASCADE)
     students = models.ManyToManyField(Student)
 
@@ -27,11 +28,12 @@ class Course(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('course_detail', kwargs={'pk': self.pk})
+        return reverse('course-detail', kwargs={'pk': self.pk})
 
 
 class Event(models.Model):
     title = models.CharField(max_length=128)
+    description = models.CharField(max_length=4000, default='')
     date = models.DateTimeField(default=timezone.now)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
 

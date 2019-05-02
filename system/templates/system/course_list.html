@@ -1,0 +1,19 @@
+
+{% extends "system/base_main.html" %}
+{% block content %}
+    {% for course in courses %}
+        <a href="{% url 'course-detail' pk=course.pk %}">
+{#            <article class="media content-section">#}
+{#                <div class="media-body">#}
+{#                    <p class="article-content">{{ course.title }}</p>#}
+{#                </div>#}
+{#            </article>#}
+            <div class="media content-section">
+                <div class="media-body">
+                    <h2>{{ course.title }}</h2>
+                    <p class="article-content">{{ course.description }}</p>
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+{% endblock content %}

@@ -34,12 +34,12 @@
                         <li class="list-group-item list-group-item-light">Find a course</li>
                     {% endif %}
                     {% if "Teacher" in groups %}
-                        <li class="list-group-item list-group-item-light"><a class="mr-2" href="{% url 'teacher_courses' %}">My courses{{ teacher_str }}</a></li>
-                        <li class="list-group-item list-group-item-light"><a class="mr-2" href="{% url 'create_new_course' %}">Create new course</a></li>
+                        <li class="list-group-item list-group-item-light"><a class="mr-2" href="{% url 'course-list' type='teacher'%}">My courses{{ teacher_str }}</a></li>
+                        <li class="list-group-item list-group-item-light"><a class="mr-2" href="{% url 'course-form' %}">Create new course</a></li>
                     {% endif %}
-                    <li class="list-group-item list-group-item-light">Find a teacher</li>
-                    <li class="list-group-item list-group-item-light">Find a student</li>
-                    <li class="list-group-item list-group-item-light"><a class="mr-2" href="{% url 'manage_groups' %}">Manage my groups</a></li>
+{#                    <li class="list-group-item list-group-item-light">Find a student</li>#}
+{#                    <li class="list-group-item list-group-item-light">Find a teacher</li>#}
+                    <li class="list-group-item list-group-item-light"><a class="mr-2" href="{% url 'manage-groups' %}">Manage my groups</a></li>
                 </ul>
                 <div class="sidebar-footer">
                     <p class="article-content" style="display:inline">
