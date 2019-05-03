@@ -12,7 +12,7 @@ urlpatterns = [
     path('overview/manage_groups/change_student_status/', change_student_status, name='change-student-status'),
     path('overview/manage_groups/change_teacher_status/', change_teacher_status, name='change-teacher-status'),
     path('overview/create_new_course/', CourseCreateView.as_view(), name='course-form'),
-    path('overview/course_list/<slug:type>/', CourseListView.as_view(), name='course-list'),
+    path('overview/course_list/<slug:position>/', CourseListView.as_view(), name='course-list'),
     path('overview/course/<int:pk>/', CourseDetailView.as_view(), name='course-detail'),
 ]
 

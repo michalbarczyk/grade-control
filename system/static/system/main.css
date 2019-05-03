@@ -61,6 +61,18 @@ a.article-title:hover {
   white-space: pre-line;
 }
 
+.article-small-content {
+  white-space: pre-line;
+  color: #888888;
+  font-style: italic;
+}
+
+.article-link, .article-link:hover {
+  text-decoration: none;
+  color: #444444;
+}
+
+
 .sidebar-footer {
   margin-top: 60px;
   white-space: pre-line;

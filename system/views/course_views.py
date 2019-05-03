@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic import CreateView, DetailView, ListView
 
-from system.models import Teacher, Course
+from system.models import Teacher, Course, Student
 from system.views import append_sidebar
 
 
@@ -55,7 +55,15 @@ class CourseListView(LoginRequiredMixin, ListView):
         return context
 
     def get_queryset(self):
-        # type = self.request.session['type']
-        # print(type) TODO
-        teacher = Teacher.objects.filter(user=self.request.user).first()
-        return Course.objects.filter(author=teacher)
+        position = self.kwargs['position']
+        # position = self.request.session['position']
+        print(position)
+        if position == 'teacher':
+            user = Teacher.objects.filter(user=self.request.user).first()
+            return Course.objects.filter(author=user)
+        elif position == 'student':
+            user = Student.objects.filter(user=self.request.user).first()
+            return Course.objects.filter(students__user__username__contains=user)
+
+
+
