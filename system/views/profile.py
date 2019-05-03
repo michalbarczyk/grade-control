@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
-from system.forms import UserUpdateForm, ProfileUpdateForm
+from users.forms import UserUpdateForm, ProfileUpdateForm
 
 
 @login_required

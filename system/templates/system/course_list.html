@@ -1,0 +1,16 @@
+
+{% extends "system/base_main.html" %}
+{% block content %}
+    {% for course in courses %}
+        <a class="article-link" href="{% url 'course-detail' pk=course.pk %}">
+            <div class="media content-section">
+                <div class="media-body">
+                    <h2>{{ course.title }}</h2>
+                    <p class="article-small-content">Author: {{ course.author.user.first_name }} {{ course.author.user.last_name }}
+                    Students: {{ course.students.all|length }}</p>
+                    <p class="article-content">{{ course.description }}</p>
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+{% endblock content %}

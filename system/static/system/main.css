@@ -61,6 +61,18 @@ a.article-title:hover {
   white-space: pre-line;
 }
 
+.article-small-content {
+  white-space: pre-line;
+  color: #888888;
+  font-style: italic;
+}
+
+.article-link, .article-link:hover {
+  text-decoration: none;
+  color: #444444;
+}
+
+
 .sidebar-footer {
   margin-top: 60px;
   white-space: pre-line;
@@ -78,10 +90,21 @@ a.article-title:hover {
   border-bottom: 1px solid #e3e3e3
 }
 
+.page-title {
+  padding-bottom: 1px;
+  /*margin-bottom: 50px;*/
+  border-bottom: 1px solid #e3e3e3
+}
+
 .page-metadata {
   padding-bottom: 1px;
   margin-bottom: 50px;
-  border-bottom: 1px solid #e3e3e3
+  /*border-bottom: 1px solid #e3e3e3*/
+}
+
+.page-buttonmenu {
+  padding-bottom: 1px;
+  margin-top: 30px;
 }
 
 .article-metadata a:hover {

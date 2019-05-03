@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
-from system.models import Grade, Student, Teacher
+from system.models import Student, Teacher
 from system.views.overview import append_sidebar, student_exists, teacher_exists
 
 

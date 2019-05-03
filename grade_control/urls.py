@@ -21,4 +21,5 @@ from system import views as system_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('system.urls')),
+    path('', include('users.urls')),
 ]
