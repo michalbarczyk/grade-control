@@ -20,7 +20,7 @@ class Teacher(models.Model):
 
 class Course(models.Model):
     title = models.CharField(max_length=128)
-    description = models.CharField(max_length=4000, default='')
+    description = models.TextField(max_length=4000, blank=True)
     author = models.ForeignKey(Teacher, on_delete=models.CASCADE)
     students = models.ManyToManyField(Student)
 
@@ -33,7 +33,7 @@ class Course(models.Model):
 
 class Event(models.Model):
     title = models.CharField(max_length=128)
-    description = models.CharField(max_length=4000, default='')
+    description = models.TextField(max_length=4000, blank=True)
     date = models.DateTimeField(default=timezone.now)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
 
@@ -42,12 +42,15 @@ class Event(models.Model):
 
 
 class Grade(models.Model):
+    GRADES = (
+        ('2.0', 'chlip'),
+        ('3.0', 'ok'),
+        ('4.0', 'dobre'),
+        ('5.0', 'bardzodobre'),
+    )
     owner = models.ForeignKey(Student, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    grade = models.CharField(max_length=4)
+    grade = models.CharField(max_length=3, choices=GRADES)
 
     def __str__(self):
         return self.grade
-
-
-
