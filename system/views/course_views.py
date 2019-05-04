@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.views.generic import CreateView, DetailView, ListView
+from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
 
 from system.models import Teacher, Course, Student
 from system.views import append_sidebar
@@ -27,15 +27,27 @@ class CourseCreateView(LoginRequiredMixin, CreateView):
         # return HttpResponseRedirect(reverse('teacher_courses'))
 
 
-class CourseDetailView(LoginRequiredMixin, DetailView):
+class CourseUpdateView(LoginRequiredMixin, UpdateView):
     model = Course
-    # template_name = 'system/course_detail.html'
+    # template_name = 'system/course_form.html'
+    fields = ['title', 'description']
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        user = self.request.user
-        # context['user'] = user
-        context.update(append_sidebar(user))
+    def get_context_data(self, *args, **kwargs):
+        context = super(CourseUpdateView, self).get_context_data(*args, **kwargs)
+        context['title'] = 'Update course'
+        context.update(append_sidebar(self.request.user))
+        return context
+
+
+class CourseDeleteView(LoginRequiredMixin, DeleteView):
+    model = Course
+    template_name = 'system/course_confirm_delete.html'
+    # fields = ['title', 'description']
+
+    def get_context_data(self, *args, **kwargs):
+        context = super(CourseDeleteView, self).get_context_data(*args, **kwargs)
+        # context['title'] = 'Delete course'
+        context.update(append_sidebar(self.request.user))
         return context
 
 
@@ -66,4 +78,13 @@ class CourseListView(LoginRequiredMixin, ListView):
             return Course.objects.filter(students__user__username__contains=user)
 
 
+class CourseDetailView(LoginRequiredMixin, DetailView):
+    model = Course
+    # template_name = 'system/course_detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        # context['user'] = user
+        context.update(append_sidebar(user))
+        return context

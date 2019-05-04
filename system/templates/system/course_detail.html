@@ -9,22 +9,8 @@
         <div class="page-buttonmenu">
             <a class="btn btn-info btn-sm mt-1 mb-1" href="#">Add events</a>
             <a class="btn btn-info btn-sm mt-1 mb-1" href="#">Add students</a>
-            <a class="btn btn-info btn-sm mt-1 mb-1" href="#">Edit course info</a>
-            <a class="btn btn-danger btn-sm mt-1 mb-1" href="#">Delete course</a>
+            <a class="btn btn-info btn-sm mt-1 mb-1" href="{% url 'course-update' pk=object.pk %}">Edit course info</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'course-delete' pk=object.pk %}">Delete course</a>
         </div>
     </div>
-
-    {#    {% for event in object.event_set %}#}
-    {#        <article class="media content-section">#}
-    {#            <div class="media-body">#}
-    {#                <div class="article-metadata">#}
-    {#                    <a class="mr-2" href="#">{{ event.title }}</a>#}
-    {#        <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>#}
-    {#        {% if object.author == user %}#}
-    {##}
-    {#        {% endif %}#}
-    {#                </div>#}
-    {#            </div>#}
-    {#        </article>#}
-    {#    {% endfor %}#}
 {% endblock content %}

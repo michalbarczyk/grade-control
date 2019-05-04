@@ -1,0 +1,15 @@
+{% extends "system/base_main.html" %}
+{% block content %}
+    <div class="page-metadata">
+        <div class="page-title">
+            <h1>Delete: {{ object.title }}</h1>
+        </div>
+        Deleting this course will remove all events connected with it.
+        <div class="page-buttonmenu">
+            {#            <form method="post">{% csrf_token %}#}
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'course-list' position='teacher' %}">Delete</a>
+            <a class="btn btn-success btn-sm mt-1 mb-1" href="{% url 'course-list' position='teacher' %}">Back</a>
+            {#            </form>#}
+        </div>
+    </div>
+{% endblock content %}
