@@ -19,3 +19,12 @@ class Profile(models.Model):
             output_size = (300, 300)
             img.thumbnail(output_size)
             img.save(self.image.path)
+
+
+def get_full_name(self):
+    if self.first_name or self.last_name:
+        return self.first_name + " " + self.last_name
+    return self.username
+
+
+User.add_to_class('get_full_name', get_full_name)

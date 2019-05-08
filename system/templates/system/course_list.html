@@ -6,7 +6,7 @@
             <div class="media content-section">
                 <div class="media-body">
                     <h2>{{ course.title }}</h2>
-                    <p class="article-small-content">Author: {{ course.author.user.first_name }} {{ course.author.user.last_name }}
+                    <p class="article-small-content">Author: {{ course.author.user.get_full_name }}
                     Students: {{ course.students.all|length }}</p>
                     <p class="article-content">{{ course.description }}</p>
                 </div>
