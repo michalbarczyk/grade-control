@@ -7,7 +7,7 @@
         {{ object.description }}
 
         <div class="page-buttonmenu">
-            <a class="btn btn-info btn-sm mt-1 mb-1" href="#">Add events</a>
+            <a class="btn btn-info btn-sm mt-1 mb-1" href="{% url 'event-form' pk=object.pk %}">Add event</a>
             <a class="btn btn-info btn-sm mt-1 mb-1" href="#">Add students</a>
             <a class="btn btn-info btn-sm mt-1 mb-1" href="#">Edit course info</a>
             <a class="btn btn-danger btn-sm mt-1 mb-1" href="#">Delete course</a>

@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
 from django.urls import reverse
+import datetime
 
 
 class Student(models.Model):
@@ -34,11 +35,14 @@ class Course(models.Model):
 class Event(models.Model):
     title = models.CharField(max_length=128)
     description = models.TextField(max_length=4000, blank=True)
-    date = models.DateTimeField(default=timezone.now)
+    date = models.DateTimeField(default=datetime.datetime.now())
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('course-detail', kwargs={'pk': self.course.pk})
 
 
 class Grade(models.Model):
