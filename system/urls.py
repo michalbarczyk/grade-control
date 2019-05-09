@@ -16,6 +16,7 @@ urlpatterns = [
     path('overview/delete_course/<int:pk>/', CourseDeleteView.as_view(), name='course-delete'),
     path('overview/course_list/<slug:position>/', CourseListView.as_view(), name='course-list'),
     path('overview/course/<int:pk>/', CourseDetailView.as_view(), name='course-detail'),
+    path('overview/course/<int:pk>/create_new_event/', EventCreateView.as_view(), name='event-form'),
 ]
 
 if settings.DEBUG:
