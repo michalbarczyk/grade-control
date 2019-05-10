@@ -1,0 +1,23 @@
+{% extends "system/base_main.html" %}
+{% block content %}
+    <div class="page-metadata">
+        <div class="page-title">
+            <h1>Event: {{ object.title }}</h1>
+        </div>
+        {{ object.description }}
+
+        <div class="page-buttonmenu">
+            <a class="btn btn-info btn-sm mt-1 mb-1" href="#">Add grades</a>
+        </div>
+        {% for student in event.course.students %}
+        <a class="article-link" href="#">
+            <div class="media content-section">
+                <div class="media-body">
+                    <h2>{{ student. }}</h2>
+                    <p class="article-small-content">Date: {{ event.date }}</p>
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+    </div>
+{% endblock content %}

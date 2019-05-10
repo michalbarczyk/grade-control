@@ -2,6 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
+from django.shortcuts import render
 
 from system.models import Teacher, Course, Student
 from system.views import append_sidebar
@@ -80,6 +81,7 @@ class CourseListView(LoginRequiredMixin, ListView):
 
 class CourseDetailView(LoginRequiredMixin, DetailView):
     model = Course
+    context_object_name = 'course'
     # template_name = 'system/course_detail.html'
 
     def get_context_data(self, **kwargs):
@@ -88,3 +90,5 @@ class CourseDetailView(LoginRequiredMixin, DetailView):
         # context['user'] = user
         context.update(append_sidebar(user))
         return context
+
+

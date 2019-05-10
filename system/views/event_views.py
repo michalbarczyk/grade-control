@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import CreateView, DetailView, ListView
+from django.contrib.auth.models import User
 
 from system.models import Teacher, Course, Student, Event
 from system.views import append_sidebar
@@ -22,46 +23,43 @@ class EventCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-"""
-class CourseDetailView(LoginRequiredMixin, DetailView):
-    model = Course
-    # template_name = 'system/course_detail.html'
+class EventDetailView(LoginRequiredMixin, DetailView):
+    model = Event
+    context_object_name = 'event'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
-        # context['user'] = user
+        course = Course.objects.get(pk=self.kwargs['pk'])
+        students_names = User.objects.filter()
         context.update(append_sidebar(user))
         return context
 
 
-class CourseListView(LoginRequiredMixin, ListView):
-    model = Course
-    # template_name = 'system/course_list.html'
-    context_object_name = 'courses'
+class EventListView(LoginRequiredMixin, ListView):
+    model = Event
+    context_object_name = 'events'
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.type = None
 
     def get_context_data(self, *args, **kwargs):
-        context = super(CourseListView, self).get_context_data(*args, **kwargs)
-        context['title'] = 'Your courses'
+        context = super(EventListView, self).get_context_data(*args, **kwargs)
+
+        context['title'] = self.get_title
         context.update(append_sidebar(self.request.user))
         return context
 
     def get_queryset(self):
-        position = self.kwargs['position']
-        # position = self.request.session['position']
-        print(position)
-        if position == 'teacher':
-            user = Teacher.objects.filter(user=self.request.user).first()
-            return Course.objects.filter(author=user)
-        elif position == 'student':
-            user = Student.objects.filter(user=self.request.user).first()
-            return Course.objects.filter(students__user__username__contains=user)
+        course = Course.objects.get(pk=self.kwargs['pk'])
+        return Event.objects.filter(course=course)
 
-"""
+    def get_title(self):
+        course = Course.objects.get(pk=self.kwargs['pk'])
+        return 'Events in "' + course.title + '"'
+
+
 
 
 
