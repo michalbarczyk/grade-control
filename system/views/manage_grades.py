@@ -3,20 +3,15 @@ from django.shortcuts import render
 
 from system.views.overview import append_sidebar, student_exists, teacher_exists
 from system.views import Course
-from system.forms import AddStudentForm
-
-
-def student_in_course(student, **kwargs):
-    course = Course.objects.get(pk=kwargs['pk'])
-    return course.students.filter(user=student.user).exists()
+from system.forms import AddGradeForm
 
 
 @login_required
-def manage_students(request, **kwargs):
+def manage_grades(request, **kwargs):
 
     if request.method == 'POST':
 
-        form = AddStudentForm(request.POST)
+        form = AddGradeForm(request.POST)
 
         if form.is_valid():
 
@@ -27,20 +22,12 @@ def manage_students(request, **kwargs):
 
     # then create new empty form
     user = request.user
-    form = AddStudentForm(kwargs)
+    form = AddGradeForm()
 
     context = {
-        'title': 'Add student to course',
+        'title': 'Add grade',
         'form': form
     }
 
     context.update(append_sidebar(user))
-    return render(request, 'system/manage_students.html', context)
-
-
-
-
-
-
-
-
+    return render(request, 'system/manage_grades.html', context)

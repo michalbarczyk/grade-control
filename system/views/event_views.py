@@ -30,8 +30,8 @@ class EventDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
-        course = Course.objects.get(pk=self.kwargs['pk'])
-        students_names = User.objects.filter()
+        #course = Course.objects.get(pk=self.kwargs['pk'])
+        #students_names = User.objects.filter()
         context.update(append_sidebar(user))
         return context
 

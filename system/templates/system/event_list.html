@@ -1,7 +1,7 @@
 {% extends "system/base_main.html" %}
 {% block content %}
     {% for event in events %}
-        <a class="article-link" href="#">
+        <a class="article-link" href="{% url 'event-detail' course_pk=event.course.pk pk=event.pk %}">
             <div class="media content-section">
                 <div class="media-body">
                     <h2>{{ event.title }}</h2>

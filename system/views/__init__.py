@@ -5,3 +5,4 @@ from .event_views import *
 from .overview import *
 from .profile import *
 from .manage_students import *
+from .manage_grades import *
