@@ -1,10 +1,13 @@
 {% extends "system/base_main.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
-    {% for student in students %}
-       <div class="checkbox">
-           <label>
-               <input type="checkbox"> {{ student.user.first_name }} {{ student.user.last_name }}
-           </label>
-       </div>
-    {% endfor %}
+    <form action="" method="post">
+    {% csrf_token %}
+    <table>
+    {{ form|crispy}}
+    </table>
+    <input type="submit" value="Add student">
+  </form>
 {% endblock content %}
+
+
