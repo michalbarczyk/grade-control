@@ -16,18 +16,26 @@ def manage_students(request, **kwargs):
 
     if request.method == 'POST':
 
-        form = AddStudentForm(request.POST)
+        form = AddStudentForm(request.POST)# , **kwargs
 
         if form.is_valid():
 
             student = form.cleaned_data['student']
             course = Course.objects.get(pk=kwargs['pk'])
+
+            print(student.user.first_name)
+            print(course.title)
+
+
             # add pair course-student to DB
             course.students.add(student)
+            print(kwargs['pk'])
+
+
 
     # then create new empty form
     user = request.user
-    form = AddStudentForm(kwargs)
+    form = AddStudentForm()
 
     context = {
         'title': 'Add student to course',

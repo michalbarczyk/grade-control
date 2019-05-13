@@ -1,41 +1,45 @@
 from django import forms
-from .models import Student, Course
+from .models import Student, Course, Grade
 
 
 class AddStudentForm(forms.Form):
 
+    # queryset to be filled in constructor
     student = forms.ModelChoiceField(queryset=Student.objects.all())
-
 """
     def __init__(self, *args, **kwargs):
 
         course_pk = kwargs.pop('pk', None)
-        print(course_pk)
         super(AddStudentForm, self).__init__(*args, **kwargs)
-        #course = Course.objects.get(pk=course_pk)
-        #all = Student.objects.all()
-        #already_in_course = course.students.all()
+        course = Course.objects.get(pk=course_pk)
+        print(course)
+        all_students = Student.objects.all()
+        already_in_course = course.students.all()
 
-        #self.fields['queryset'] = all.difference(already_in_course)
+        self.fields['student'].queryset = all_students.difference(already_in_course).all()
 """
+
 
 
 class AddGradeForm(forms.Form):
-    GRADES = (
-        ('2.0', 'chlip'),
-        ('3.0', 'ok'),
-        ('4.0', 'dobre'),
-        ('5.0', 'bardzodobre'),
-    )
 
     student = forms.ModelChoiceField(queryset=Student.objects.all())
-    grade = forms.ChoiceField(choices=GRADES)
-"""
- def __init__(self, course):
-        super(AddGradeForm, self).__init__()
-        print('from log='+ course.title)
-        #course = Course.objects.get(pk=course_pk)
-"""
+    grade = forms.ChoiceField(choices=Grade.GRADES)
+
+    def __init__(self, *args, **kwargs):
+
+        course_pk = kwargs.pop('course_pk', None)
+        event_pk = kwargs.pop('pk', None)
+        super(AddGradeForm, self).__init__(*args, **kwargs)
+        course = Course.objects.get(pk=course_pk)
+
+        self.fields['student'].queryset = course.students.all()
+
+
+
+
+
+
 
 
 

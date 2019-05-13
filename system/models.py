@@ -49,7 +49,9 @@ class Grade(models.Model):
     GRADES = (
         ('2.0', 'chlip'),
         ('3.0', 'ok'),
+        ('3.5', 'ok +'),
         ('4.0', 'dobre'),
+        ('4.5', 'dobre +'),
         ('5.0', 'bardzodobre'),
     )
     owner = models.ForeignKey(Student, on_delete=models.CASCADE)
