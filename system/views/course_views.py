@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
 from django.shortcuts import render
 
-from system.models import Teacher, Course, Student, Grade
+from system.models import Teacher, Course, Student, Grade, Event
 from system.views import append_sidebar
 
 
@@ -88,6 +88,21 @@ class CourseDetailView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         user = self.request.user
         # context['user'] = user
+
+        course = Course.objects.get(pk=self.kwargs['pk'])
+        course_events = Event.objects.filter(course=course)
+        grade_summary = []
+        for student in course.students.all():
+            student_all_grades = Grade.objects.filter(owner=student).all()
+
+            grades_str = ''
+            for grade in student_all_grades:
+                if grade.event in course_events:
+                    grades_str = grades_str + str(grade.grade) + ' '
+
+            grade_summary.append({'full_name': student.user.first_name + ' ' + student.user.last_name, 'grades': grades_str})
+
+        context['grade_summary'] = grade_summary
         context.update(append_sidebar(user))
         return context
 

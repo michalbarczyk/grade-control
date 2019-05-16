@@ -40,7 +40,7 @@ class EventDetailView(LoginRequiredMixin, DetailView):
             print(event_grade)
             if event_grade is None:
                 event_grade = 'no grade'
-            grade_summary.append({'name': student.user.first_name + ' ' + student.user.last_name, 'grade': event_grade})
+            grade_summary.append({'full_name': student.user.first_name + ' ' + student.user.last_name, 'grade': event_grade})
 
         context['grade_summary'] = grade_summary
         context.update(append_sidebar(user))
