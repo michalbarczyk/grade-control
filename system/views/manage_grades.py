@@ -34,6 +34,7 @@ def manage_grades(request, **kwargs):
             grade.event = event
             grade.save()
 
+
     # then create new empty form
     user = request.user
     form = AddGradeForm(**kwargs)

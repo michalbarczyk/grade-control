@@ -16,7 +16,7 @@ def manage_students(request, **kwargs):
 
     if request.method == 'POST':
 
-        form = AddStudentForm(request.POST)# , **kwargs
+        form = AddStudentForm(request.POST)#, **kwargs)
 
         if form.is_valid():
 

@@ -2,7 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import CreateView, DetailView, ListView
 from django.contrib.auth.models import User
 
-from system.models import Teacher, Course, Student, Event
+from system.models import Teacher, Course, Student, Event, Grade
 from system.views import append_sidebar
 
 
@@ -30,8 +30,19 @@ class EventDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
-        #course = Course.objects.get(pk=self.kwargs['pk'])
-        #students_names = User.objects.filter()
+        course = Course.objects.get(pk=self.kwargs['course_pk'])
+        event = Event.objects.get(pk=self.kwargs['pk'])
+
+        grade_summary = []
+        for student in course.students.all():
+            print(student.user.first_name)
+            event_grade = Grade.objects.filter(owner=student, event=event).first()
+            print(event_grade)
+            if event_grade is None:
+                event_grade = 'no grade'
+            grade_summary.append({'name': student.user.first_name + ' ' + student.user.last_name, 'grade': event_grade})
+
+        context['grade_summary'] = grade_summary
         context.update(append_sidebar(user))
         return context
 

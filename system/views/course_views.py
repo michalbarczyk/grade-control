@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
 from django.shortcuts import render
 
-from system.models import Teacher, Course, Student
+from system.models import Teacher, Course, Student, Grade
 from system.views import append_sidebar
 
 

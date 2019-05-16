@@ -9,12 +9,13 @@
     <div class="page-buttonmenu">
             <a class="btn btn-info btn-sm mt-1 mb-1" href="{% url 'manage-grades' course_pk=object.course.pk pk=object.pk %}">Manage grades</a>
         </div>
-        {% for student in object.course.students.all %}
+        {% for student in grade_summary %}
         <a class="article-link" href="#">
             <div class="media content-section">
                 <div class="media-body">
-                    <h2>{{ student.user.first_name }} {{ student.user.last_name }}</h2>
-                    <p class="article-small-content">Grades: -10- </p>
+                    <!--h2>{{ student.user.first_name }} {{ student.user.last_name }}</h2 -->
+                    <h2>{{ student.name }} </h2>
+                    <p class="article-small-content">Grade: {{ student.grade }} </p>
                 </div>
             </div>
         </a>
