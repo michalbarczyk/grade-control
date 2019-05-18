@@ -17,6 +17,13 @@ urlpatterns = [
     path('overview/course_list/<slug:position>/', CourseListView.as_view(), name='course-list'),
     path('overview/course/<int:pk>/', CourseDetailView.as_view(), name='course-detail'),
     path('overview/course/<int:pk>/create_new_event/', EventCreateView.as_view(), name='event-form'),
+    path('overview/course/<int:pk>/event_list/', EventListView.as_view(), name='see-events'),
+    path('overview/course/<int:course_pk>/event_list/<int:pk>/', EventDetailView.as_view(), name='event-detail'),
+    path('overview/course/<int:course_pk>/event_list/<int:pk>/manage_grades', manage_grades, name='manage-grades'),
+    path('overview/course/<int:pk>/manage_students', manage_students, name='manage-students'),
+
+
+
 ]
 
 if settings.DEBUG:

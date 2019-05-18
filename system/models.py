@@ -49,12 +49,17 @@ class Grade(models.Model):
     GRADES = (
         ('2.0', 'chlip'),
         ('3.0', 'ok'),
+        ('3.5', 'ok +'),
         ('4.0', 'dobre'),
+        ('4.5', 'dobre +'),
         ('5.0', 'bardzodobre'),
     )
     owner = models.ForeignKey(Student, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     grade = models.CharField(max_length=3, choices=GRADES)
+
+    class Meta:
+        unique_together = ('owner', 'event',)
 
     def __str__(self):
         return self.grade

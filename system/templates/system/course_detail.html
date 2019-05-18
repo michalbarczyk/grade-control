@@ -8,9 +8,22 @@
 
         <div class="page-buttonmenu">
             <a class="btn btn-info btn-sm mt-1 mb-1" href="{% url 'event-form' pk=object.pk %}">Add event</a>
-            <a class="btn btn-info btn-sm mt-1 mb-1" href="#">Add students</a>
+            <a class="btn btn-info btn-sm mt-1 mb-1" href="{% url 'manage-students' pk=object.pk %}">Manage students</a>
+            <a class="btn btn-info btn-sm mt-1 mb-1" href="{% url 'see-events' pk=object.pk %}">See events</a>
             <a class="btn btn-info btn-sm mt-1 mb-1" href="{% url 'course-update' pk=object.pk %}">Edit course info</a>
             <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'course-delete' pk=object.pk %}">Delete course</a>
         </div>
+
+        {% for student in grade_summary %}
+        <a class="article-link" href="#">
+            <div class="media content-section">
+                <div class="media-body">
+                    <h2>{{ student.full_name }} </h2>
+                    <p class="article-small-content">Grades: {{ student.grades }}  </p>
+                </div>
+            </div>
+        </a>
+    {% endfor %}
+
     </div>
 {% endblock content %}

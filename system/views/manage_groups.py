@@ -11,7 +11,6 @@ def manage_groups(request):
     leave_button = {'text': 'Leave', 'style': 'btn btn-danger'}
     join_button = {'text': 'Join', 'style': 'btn btn-success'}
 
-
     if student_exists(user):
         button_s = leave_button
     else:
