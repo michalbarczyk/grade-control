@@ -21,6 +21,7 @@ class Profile(models.Model):
             img.save(self.image.path)
 
 
+@property
 def get_full_name(self):
     if self.first_name or self.last_name:
         return self.first_name + " " + self.last_name
