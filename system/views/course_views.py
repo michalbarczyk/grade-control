@@ -42,7 +42,8 @@ class CourseUpdateView(LoginRequiredMixin, UpdateView):
 
 class CourseDeleteView(LoginRequiredMixin, DeleteView):
     model = Course
-    template_name = 'system/course_confirm_delete.html'
+    success_url = '/overview/course_list/teacher/'
+    # template_name = 'system/course_confirm_delete.html'
     # fields = ['title', 'description']
 
     def get_context_data(self, *args, **kwargs):
@@ -50,6 +51,12 @@ class CourseDeleteView(LoginRequiredMixin, DeleteView):
         # context['title'] = 'Delete course'
         context.update(append_sidebar(self.request.user))
         return context
+
+    def test_func(self):
+        course = self.get_object()
+        if self.request.user == course.author:
+            return True
+        return False
 
 
 class CourseListView(LoginRequiredMixin, ListView):
@@ -93,17 +100,15 @@ class CourseDetailView(LoginRequiredMixin, DetailView):
         course_events = Event.objects.filter(course=course)
         grade_summary = []
         for student in course.students.all():
-            student_all_grades = Grade.objects.filter(owner=student).all()
+            student_all_grades = Grade.objects.filter(owner=student)
 
             grades_str = ''
             for grade in student_all_grades:
                 if grade.event in course_events:
                     grades_str = grades_str + str(grade.grade) + ' '
 
-            grade_summary.append({'full_name': student.user.first_name + ' ' + student.user.last_name, 'grades': grades_str})
+            grade_summary.append({'full_name': student.user.get_full_name, 'grades': grades_str})
 
         context['grade_summary'] = grade_summary
         context.update(append_sidebar(user))
         return context
-
-

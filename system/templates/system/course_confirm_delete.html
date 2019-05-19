@@ -6,10 +6,10 @@
         </div>
         Deleting this course will remove all events connected with it.
         <div class="page-buttonmenu">
-            {#            <form method="post">{% csrf_token %}#}
-            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'course-list' position='teacher' %}">Delete</a>
-            <a class="btn btn-success btn-sm mt-1 mb-1" href="{% url 'course-list' position='teacher' %}">Back</a>
-            {#            </form>#}
+            <form  method="POST">{% csrf_token %}
+                <button type="submit" class="btn btn-danger btn-sm mt-1 mb-1">Delete</button>
+            </form>
+            <a class="btn btn-success btn-sm mt-1 mb-1" href="{% url 'course-detail' pk=object.pk %}">Back</a>
         </div>
     </div>
 {% endblock content %}
