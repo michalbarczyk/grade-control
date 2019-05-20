@@ -29,7 +29,7 @@ class Course(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('course-detail', kwargs={'pk': self.pk})
+        return reverse('course-detail', kwargs={'pk': self.pk}) + '?position=teacher'
 
 
 class Event(models.Model):
@@ -42,7 +42,7 @@ class Event(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('course-detail', kwargs={'pk': self.course.pk})
+        return reverse('course-detail', kwargs={'pk': self.course.pk}) + '?position=teacher'
 
 
 class Grade(models.Model):

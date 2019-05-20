@@ -71,11 +71,12 @@ class CourseListView(LoginRequiredMixin, ListView):
     def get_context_data(self, *args, **kwargs):
         context = super(CourseListView, self).get_context_data(*args, **kwargs)
         context['title'] = 'Your courses'
+        context['position'] = self.request.GET.get('position', '')
         context.update(append_sidebar(self.request.user))
         return context
 
     def get_queryset(self):
-        position = self.kwargs['position']
+        position = self.request.GET.get('position', '')
         # position = self.request.session['position']
         print(position)
         if position == 'teacher':
@@ -83,7 +84,7 @@ class CourseListView(LoginRequiredMixin, ListView):
             return Course.objects.filter(author=user)
         elif position == 'student':
             user = Student.objects.filter(user=self.request.user).first()
-            return Course.objects.filter(students__user__username__contains=user)
+            return Course.objects.filter(students__user__username=user)
 
 
 class CourseDetailView(LoginRequiredMixin, DetailView):
@@ -95,6 +96,8 @@ class CourseDetailView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         user = self.request.user
         # context['user'] = user
+        position = self.request.GET.get('position', '')
+        context['position'] = position
 
         course = Course.objects.get(pk=self.kwargs['pk'])
         course_events = Event.objects.filter(course=course)
@@ -112,3 +115,7 @@ class CourseDetailView(LoginRequiredMixin, DetailView):
         context['grade_summary'] = grade_summary
         context.update(append_sidebar(user))
         return context
+
+
+# def leave_course(request):
+#     user = request.user

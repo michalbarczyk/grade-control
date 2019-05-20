@@ -9,7 +9,7 @@
             <form  method="POST">{% csrf_token %}
                 <button type="submit" class="btn btn-danger btn-sm mt-1 mb-1">Delete</button>
             </form>
-            <a class="btn btn-success btn-sm mt-1 mb-1" href="{% url 'course-detail' pk=object.pk %}">Back</a>
+            <a class="btn btn-success btn-sm mt-1 mb-1" href="{% url 'course-detail-teacher' pk=object.pk %}">Back</a>
         </div>
     </div>
 {% endblock content %}
