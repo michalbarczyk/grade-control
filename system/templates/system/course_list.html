@@ -2,7 +2,7 @@
 {% extends "system/base_main.html" %}
 {% block content %}
     {% for course in courses %}
-        <a class="article-link" href="{% url 'course-detail' pk=course.pk %}">
+        <a class="article-link" href="{% url 'course-detail' pk=course.pk %}?position={{ position }}">
             <div class="media content-section">
                 <div class="media-body">
                     <h2>{{ course.title }}</h2>
