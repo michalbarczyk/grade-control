@@ -8,7 +8,7 @@ from system.views import append_sidebar
 
 class EventCreateView(LoginRequiredMixin, CreateView):
     model = Event
-    fields = ['title', 'description']
+    fields = ['title', 'description', 'weight']
 
     def get_context_data(self, *args, **kwargs):
         context = super(EventCreateView, self).get_context_data(*args, **kwargs)
