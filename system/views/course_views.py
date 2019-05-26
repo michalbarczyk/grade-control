@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
 from django.shortcuts import render
 
-from system.models import Teacher, Course, Student, Grade, Event
+from system.models import Teacher, Course, Student, AcademicGrade, Event
 from system.views import append_sidebar
 
 
@@ -103,7 +103,7 @@ class CourseDetailView(LoginRequiredMixin, DetailView):
         course_events = Event.objects.filter(course=course)
         grade_summary = []
         for student in course.students.all():
-            student_all_grades = Grade.objects.filter(owner=student)
+            student_all_grades = AcademicGrade.objects.filter(owner=student)
 
             grades_str = ''
             for grade in student_all_grades:
