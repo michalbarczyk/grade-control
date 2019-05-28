@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
@@ -8,7 +8,7 @@ from system.models import Teacher, Course, Student, AcademicGrade, Event
 from system.views import append_sidebar
 
 
-class CourseCreateView(LoginRequiredMixin, CreateView):
+class CourseCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Course
     # template_name = 'system/course_form.html'
     fields = ['title', 'description']
@@ -27,8 +27,14 @@ class CourseCreateView(LoginRequiredMixin, CreateView):
         # obj.save()
         # return HttpResponseRedirect(reverse('teacher_courses'))
 
+    def test_func(self):
+        position = self.request.GET.get('position', '')
+        if position == 'teacher':
+            return Student.objects.filter(user=self.request.user).exists()
+        return False
 
-class CourseUpdateView(LoginRequiredMixin, UpdateView):
+
+class CourseUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Course
     # template_name = 'system/course_form.html'
     fields = ['title', 'description']
@@ -39,10 +45,14 @@ class CourseUpdateView(LoginRequiredMixin, UpdateView):
         context.update(append_sidebar(self.request.user))
         return context
 
+    def test_func(self):
+        return test_author(self)
 
-class CourseDeleteView(LoginRequiredMixin, DeleteView):
+
+class CourseDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Course
-    success_url = '/overview/course_list/teacher/'
+    success_url = '/overview/course_list?position=teacher'
+
     # template_name = 'system/course_confirm_delete.html'
     # fields = ['title', 'description']
 
@@ -53,13 +63,16 @@ class CourseDeleteView(LoginRequiredMixin, DeleteView):
         return context
 
     def test_func(self):
-        course = self.get_object()
-        if self.request.user == course.author:
-            return True
-        return False
+        return test_author(self)
 
 
-class CourseListView(LoginRequiredMixin, ListView):
+def test_author(classview):
+    if classview.request.user == classview.get_object().author.user:
+        return True
+    return False
+
+
+class CourseListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     model = Course
     # template_name = 'system/course_list.html'
     context_object_name = 'courses'
@@ -80,16 +93,25 @@ class CourseListView(LoginRequiredMixin, ListView):
         # position = self.request.session['position']
         print(position)
         if position == 'teacher':
-            user = Teacher.objects.filter(user=self.request.user).first()
+            user = Teacher.objects.get(user=self.request.user)
             return Course.objects.filter(author=user)
         elif position == 'student':
-            user = Student.objects.filter(user=self.request.user).first()
+            user = Student.objects.get(user=self.request.user)
             return Course.objects.filter(students__user__username=user)
 
+    def test_func(self):
+        position = self.request.GET.get('position', '')
+        if position == 'teacher':
+            return Teacher.objects.filter(user=self.request.user).exists()
+        if position == 'student':
+            return Student.objects.filter(user=self.request.user).exists()
+        return False
 
-class CourseDetailView(LoginRequiredMixin, DetailView):
+
+class CourseDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     model = Course
     context_object_name = 'course'
+
     # template_name = 'system/course_detail.html'
 
     def get_context_data(self, **kwargs):
@@ -116,6 +138,10 @@ class CourseDetailView(LoginRequiredMixin, DetailView):
         context.update(append_sidebar(user))
         return context
 
-
-# def leave_course(request):
-#     user = request.user
+    def test_func(self):
+        position = self.request.GET.get('position', '')
+        if position == 'teacher':
+            return Course.objects.filter(author__user=self.request.user).exists()
+        if position == 'student':
+            return Student.objects.filter(user=self.request.user).exists()
+        return False
