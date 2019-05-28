@@ -31,14 +31,12 @@
                 <ul class="list-group">
                     {% if "Student" in groups %}
                         <li class="list-group-item list-group-item-light"><a class="mr-2" href="{% url 'course-list' %}?position=student">My courses{{ student_str }}</a></li>
-                        <li class="list-group-item list-group-item-light">Find a course</li>
+                        <li class="list-group-item list-group-item-light"><a class="mr-2" href="{% url 'search' %}">Find course</a></li>
                     {% endif %}
                     {% if "Teacher" in groups %}
                         <li class="list-group-item list-group-item-light"><a class="mr-2" href="{% url 'course-list' %}?position=teacher">My courses{{ teacher_str }}</a></li>
                         <li class="list-group-item list-group-item-light"><a class="mr-2" href="{% url 'course-create' %}">Create new course</a></li>
                     {% endif %}
-{#                    <li class="list-group-item list-group-item-light">Find a student</li>#}
-{#                    <li class="list-group-item list-group-item-light">Find a teacher</li>#}
                     <li class="list-group-item list-group-item-light"><a class="mr-2" href="{% url 'manage-groups' %}">Manage my groups</a></li>
                 </ul>
                 <div class="sidebar-footer">
