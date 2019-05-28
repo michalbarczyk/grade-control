@@ -1,14 +1,14 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
-from system.models import Grade, Student, Teacher
+from system.models import AcademicGrade, Student, Teacher, ScoreGrade
 
 
 @login_required
 def overview(request):
     user = request.user
     if student_exists(user):
-        grades = Grade.objects.filter(owner_id=user.id)
+        grades = AcademicGrade.objects.filter(owner_id=user.id)
     else:
         grades = None
 
