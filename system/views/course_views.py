@@ -1,8 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.http import HttpResponseRedirect
-from django.urls import reverse
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
-from django.shortcuts import render
 
 from system.models import Teacher, Course, Student, AcademicGrade, Event
 from system.views import append_sidebar
@@ -28,9 +25,8 @@ class CourseCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
         # return HttpResponseRedirect(reverse('teacher_courses'))
 
     def test_func(self):
-        position = self.request.GET.get('position', '')
-        if position == 'teacher':
-            return Student.objects.filter(user=self.request.user).exists()
+        if Teacher.objects.filter(user=self.request.user).exists():
+            return True
         return False
 
 
