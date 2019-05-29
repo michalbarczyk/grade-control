@@ -39,7 +39,7 @@ class ManageAcademicGradeForm(forms.Form):
             initial = get_current_academic_grade(event, student)
             self.fields[str(student.user.pk)] = forms.ChoiceField(choices=self.CHOICES,
                                                                   initial=initial,
-                                                                  label=student.get_full_name())
+                                                                  label=student.user.get_full_name)
 
 
 def get_current_academic_grade(event, student):
@@ -77,7 +77,7 @@ class ManageScoreGradeForm(forms.Form):
         event = Event.objects.filter(pk=event_pk).first()
         for student in course.students.all():
             initial = get_current_score_grade(event, student)
-            self.fields[str(student.user.pk)] = forms.DecimalField(initial=initial, label=student.get_full_name())
+            self.fields[str(student.user.pk)] = forms.DecimalField(initial=initial, label=student.user.get_full_name)
 
 
 def get_current_score_grade(event, student):
@@ -102,7 +102,7 @@ class ManagePercentGradeForm(forms.Form):
         event = Event.objects.filter(pk=event_pk).first()
         for student in course.students.all():
             initial = get_current_percent_grade(event, student)
-            self.fields[str(student.user.pk)] = forms.IntegerField(initial=initial, label=student.get_full_name())
+            self.fields[str(student.user.pk)] = forms.IntegerField(initial=initial, label=student.user.get_full_name)
 
 
 def get_current_percent_grade(event, student):

@@ -6,3 +6,4 @@ from .overview import *
 from .profile import *
 from .manage_students import *
 from .manage_grades import *
+from .search import *

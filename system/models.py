@@ -12,9 +12,6 @@ class Student(models.Model):
     def __str__(self):
         return self.user.username
 
-    def get_full_name(self):
-        return self.user.first_name + ' ' + self.user.last_name
-
 
 class Teacher(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
