@@ -67,12 +67,12 @@ class Event(models.Model):
 
 class AcademicGrade(models.Model):
     GRADES = (
-        ('2.0', 'chlip'),
-        ('3.0', 'ok'),
-        ('3.5', 'ok +'),
-        ('4.0', 'dobre'),
-        ('4.5', 'dobre +'),
-        ('5.0', 'bardzodobre'),
+        ('2.0', '2.0'),
+        ('3.0', '3.0'),
+        ('3.5', '3.5'),
+        ('4.0', '4.0'),
+        ('4.5', '4.5'),
+        ('5.0', '5.0'),
     )
     owner = models.ForeignKey(Student, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)

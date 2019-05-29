@@ -120,33 +120,81 @@ class CourseDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
 
         course = Course.objects.get(pk=self.kwargs['pk'])
         course_events = Event.objects.filter(course=course)
+
+        # naive usage of teacher course detail view for particular student
+        #if position == 'student':
+         #   students = Student.objects.filter(user=user)
+
         grade_summary = []
-        for student in course.students.all():
+
+        if position == 'teacher':
+            students = course.students.all()
+
+            for student in students:
+                student_academic_grades = AcademicGrade.objects.filter(owner=student)
+                student_score_grades = ScoreGrade.objects.filter(owner=student)
+                student_percent_grades = PercentGrade.objects.filter(owner=student)
+
+                grades_str = ''
+                for grade in student_academic_grades:
+                    if grade.event in course_events:
+                        grades_str = grades_str + str(grade.grade) + ' '
+
+                for grade in student_score_grades:
+                    if grade.event in course_events:
+                        grades_str = grades_str + str(grade.grade) + '/' + str(grade.event.max_score) + ' '
+
+                for grade in student_percent_grades:
+                    if grade.event in course_events:
+                        grades_str = grades_str + str(grade.grade) + '% '
+
+                student_data = {'full_name': student.user.get_full_name,
+                                'grades': grades_str,
+                                }
+                final_grade = get_final_academic_grade(student, course)
+                if final_grade is not None:
+                    student_data['final_grade'] = final_grade
+                grade_summary.append(student_data)
+
+        elif position == 'student':
+
+            student = Student.objects.filter(user=user).first()
+
             student_academic_grades = AcademicGrade.objects.filter(owner=student)
             student_score_grades = ScoreGrade.objects.filter(owner=student)
             student_percent_grades = PercentGrade.objects.filter(owner=student)
 
-            grades_str = ''
             for grade in student_academic_grades:
                 if grade.event in course_events:
-                    grades_str = grades_str + str(grade.grade) + ' '
+                    grade_desc = {
+                        'event': grade.event.title,
+                        'grade': grade.grade
+                    }
+
+                    grade_summary.append(grade_desc)
 
             for grade in student_score_grades:
                 if grade.event in course_events:
-                    grades_str = grades_str + str(grade.grade) + '/' + str(grade.event.max_score) + ' '
+                    grade_desc = {
+                        'event': grade.event.title,
+                        'grade': str(grade.grade) + '/' + str(grade.event.max_score)
+                    }
+
+                    grade_summary.append(grade_desc)
 
             for grade in student_percent_grades:
                 if grade.event in course_events:
-                    grades_str = grades_str + str(grade.grade) + '% '
+                    grade_desc = {
+                        'event': grade.event.title,
+                        'grade': str(grade.grade) + '% '
+                    }
 
+                    grade_summary.append(grade_desc)
 
-            student_data = {'full_name': student.user.get_full_name,
-                            'grades': grades_str,
-                            }
             final_grade = get_final_academic_grade(student, course)
             if final_grade is not None:
-                student_data['final_grade'] = final_grade;
-            grade_summary.append(student_data)
+                context['final_grade'] = final_grade
+
 
         context['grade_summary'] = grade_summary
         context.update(append_sidebar(user))
