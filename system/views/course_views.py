@@ -3,6 +3,7 @@ from django.views.generic import CreateView, DetailView, ListView, UpdateView, D
 
 from system.models import Teacher, Course, Student, AcademicGrade, Event, ScoreGrade, PercentGrade
 from system.views import append_sidebar
+from system.grade_converter import get_final_academic_grade
 
 
 class CourseCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
@@ -138,7 +139,14 @@ class CourseDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
                 if grade.event in course_events:
                     grades_str = grades_str + str(grade.grade) + '% '
 
-            grade_summary.append({'full_name': student.user.get_full_name, 'grades': grades_str})
+
+            student_data = {'full_name': student.user.get_full_name,
+                            'grades': grades_str,
+                            }
+            final_grade = get_final_academic_grade(student, course)
+            if final_grade is not None:
+                student_data['final_grade'] = final_grade;
+            grade_summary.append(student_data)
 
         context['grade_summary'] = grade_summary
         context.update(append_sidebar(user))

@@ -24,8 +24,13 @@
                 <a class="article-link" href="#">
                     <div class="media content-section">
                         <div class="media-body">
-                            <h2>{{ student.full_name }} </h2>
-                            <p class="article-large-content">Grades: {{ student.grades }}  </p>
+                            <p class="article-large-content">
+                                <h5>{{ student.full_name }} </h5>
+                                {% if student.final_grade %}
+                                    <b>{{ student.final_grade }}</b> <br/>
+                                {% endif %}
+                                Grades: {{ student.grades }}
+                            </p>
                         </div>
                     </div>
                 </a>
