@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
 
-from system.models import Teacher, Course, Student, AcademicGrade, Event
+from system.models import Teacher, Course, Student, AcademicGrade, Event, ScoreGrade, PercentGrade
 from system.views import append_sidebar
 
 
@@ -121,12 +121,22 @@ class CourseDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
         course_events = Event.objects.filter(course=course)
         grade_summary = []
         for student in course.students.all():
-            student_all_grades = AcademicGrade.objects.filter(owner=student)
+            student_academic_grades = AcademicGrade.objects.filter(owner=student)
+            student_score_grades = ScoreGrade.objects.filter(owner=student)
+            student_percent_grades = PercentGrade.objects.filter(owner=student)
 
             grades_str = ''
-            for grade in student_all_grades:
+            for grade in student_academic_grades:
                 if grade.event in course_events:
                     grades_str = grades_str + str(grade.grade) + ' '
+
+            for grade in student_score_grades:
+                if grade.event in course_events:
+                    grades_str = grades_str + str(grade.grade) + '/' + str(grade.event.max_score) + ' '
+
+            for grade in student_percent_grades:
+                if grade.event in course_events:
+                    grades_str = grades_str + str(grade.grade) + '% '
 
             grade_summary.append({'full_name': student.user.get_full_name, 'grades': grades_str})
 

@@ -5,7 +5,6 @@ from django.urls import reverse
 from django.core.validators import MinValueValidator, MaxValueValidator
 import datetime
 
-
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
 
@@ -94,8 +93,7 @@ class ScoreGrade(models.Model):
 
     owner = models.ForeignKey(Student, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    grade = models.DecimalField(max_digits=6, decimal_places=2,
-                                validators=[MinValueValidator(0.00)])
+    grade = models.DecimalField(max_digits=5, decimal_places=2)
 
     class Meta:
         unique_together = ('owner', 'event',)
@@ -108,7 +106,7 @@ class PercentGrade(models.Model):
 
     owner = models.ForeignKey(Student, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    grade = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(100)])
+    grade = models.IntegerField()
 
     class Meta:
         unique_together = ('owner', 'event',)
