@@ -1,9 +1,11 @@
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
 from django.urls import reverse
 from django.core.validators import MinValueValidator, MaxValueValidator
 import datetime
+
 
 class Student(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, default=None)
@@ -24,6 +26,17 @@ class Course(models.Model):
     description = models.TextField(max_length=4000, blank=True)
     author = models.ForeignKey(Teacher, on_delete=models.CASCADE)
     students = models.ManyToManyField(Student)
+    requesting = models.ManyToManyField(Student, related_name='requesting')
+
+    def clean(self):
+        intersection = self.students & self.requesting
+        if intersection:
+            raise ValidationError('Enrolled and requesting students groups should not intersect.')
+        super(Course, self).clean()
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super(Course, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title
