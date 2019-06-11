@@ -8,7 +8,7 @@ from system.models import AcademicGrade, Student, Teacher, ScoreGrade
 def overview(request):
     user = request.user
     if student_exists(user):
-        grades = AcademicGrade.objects.filter(owner_id=user.id)
+        grades = None #AcademicGrade.objects.filter(owner_id=user.id)
     else:
         grades = None
 
@@ -38,6 +38,7 @@ def append_sidebar(user):
 
 def student_exists(user):
     return Student.objects.filter(user=user.id).exists()
+
 
 def teacher_exists(user):
     return Teacher.objects.filter(user=user.id).exists()

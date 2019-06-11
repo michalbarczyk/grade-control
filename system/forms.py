@@ -1,5 +1,6 @@
 from django import forms
 from .models import Student, Course, AcademicGrade, Event, ScoreGrade, PercentGrade
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 class AddStudentForm(forms.Form):
@@ -27,8 +28,6 @@ class ManageAcademicGradeForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
 
-        print(self.CHOICES)
-
         course_pk = kwargs.pop('course_pk', None)
         event_pk = kwargs.pop('pk', None)
 
@@ -50,19 +49,6 @@ def get_current_academic_grade(event, student):
         return grade.grade
 
 
-"""
-class EventCreateForm(forms.Form):
-    title = forms.CharField(max_length=128)
-    description = forms.Textarea()
-    weight = forms.IntegerField(default=1)
-    grade_type = forms.CharField(max_length=64, choices=Event.GRADE_TYPES,
-                                 default='academic_grade',
-                                 widget=forms.Select(attrs={'onchange': 'actionform.submit();'}))
-
-    #super(EventCreateForm, self).__init__(*args, **kwargs)
-"""
-
-
 class ManageScoreGradeForm(forms.Form):
     NO_GRADE_STR = 'NO_GRADE'
     NONE_CHOICE = (NO_GRADE_STR, 'no grade')
@@ -77,7 +63,9 @@ class ManageScoreGradeForm(forms.Form):
         event = Event.objects.filter(pk=event_pk).first()
         for student in course.students.all():
             initial = get_current_score_grade(event, student)
-            self.fields[str(student.user.pk)] = forms.DecimalField(initial=initial, label=student.user.get_full_name)
+            self.fields[str(student.user.pk)] = forms.DecimalField(initial=initial,
+                                                                   label=student.user.get_full_name, ##validators doesn't work
+                                                                   validators=[MinValueValidator(0.00), MaxValueValidator(event.max_score)])
 
 
 def get_current_score_grade(event, student):
