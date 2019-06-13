@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.models import User
 from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
 
 from system.models import Teacher, Course, Student, AcademicGrade, Event, ScoreGrade, PercentGrade
@@ -195,7 +196,6 @@ class CourseDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
             if final_grade is not None:
                 context['final_grade'] = final_grade
 
-
         context['grade_summary'] = grade_summary
         context.update(append_sidebar(user))
         return context
@@ -207,3 +207,20 @@ class CourseDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
         if position == 'student':
             return Student.objects.filter(user=self.request.user).exists()
         return False
+
+
+def submit_request(request):
+    pk = request.GET.get('pk')
+    course = Course.objects.get(pk=pk)
+    submitted = request.GET.get('s')
+    username = request.GET.get('student')
+    user = User.objects.get(username=username)
+    print('xd')
+    print(user.get_full_name)
+    student = Student.objects.get(pk=user.student.pk)
+
+    course.requesting.remove(student)
+    if submitted == 'accept':
+        course.students.add(student)
+
+    return CourseDetailView.as_view()(request, pk=pk)

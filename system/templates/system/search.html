@@ -15,24 +15,27 @@
                 </div>
             </div>
         </a>
-        {% if course in own_courses %}
+        {% if is_student %}
             <div class="form-group">
-                <form action="#">
-{#                <form action="{% url 'change-teacher-status' %}">#}
-                    <button class="{{ leave_button.style }}" type="submit" >
-                        {{ leave_button.text }}
-                    </button>
-                </form>
-            </div>
-        {% else %}
-            <div class="form-group">
-{#                <form action="{% url 'change-teacher-status' %}">#}
-                <form action="#">
-                    <button class="{{ join_button.style }}" type="submit" >
-                        {{ join_button.text }}
-                    </button>
+                <form action="{% url 'update-requesting' pk=course.pk %}" method="POST">
+                    {% csrf_token %}
+
+                    {% if course in own_courses %}
+                        <button class="{{ leave_button.style }}" type="submit" >
+                            {{ leave_button.text }}
+                        </button>
+                    {% elif course in requested_courses %}
+                        <button class="{{ requested_button.style }}" type="submit" >
+                            {{ requested_button.text }}
+                        </button>
+                    {% else %}
+                        <button class="{{ join_button.style }}" type="submit">
+                            {{ join_button.text }}
+                        </button>
+                    {% endif %}
                 </form>
             </div>
         {% endif %}
+
     {% endfor %}
 {% endblock content %}

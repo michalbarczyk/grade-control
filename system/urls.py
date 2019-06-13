@@ -23,6 +23,8 @@ urlpatterns = [
     path('overview/course/<int:course_pk>/event_list/<int:pk>/manage_grades/', manage_grades, name='manage-grades'),
     path('overview/course/<int:pk>/manage_students/', manage_students, name='manage-students'),
     path('overview/search/', search, name='search'),
+    path('overview/search/update_requesting/<int:pk>/', update_requesting, name='update-requesting'),
+    path('overview/search/submit_request/', submit_request, name='submit-request')
 ]
 
 if settings.DEBUG:

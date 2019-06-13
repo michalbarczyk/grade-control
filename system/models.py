@@ -28,16 +28,6 @@ class Course(models.Model):
     students = models.ManyToManyField(Student)
     requesting = models.ManyToManyField(Student, related_name='requesting')
 
-    def clean(self):
-        intersection = self.students & self.requesting
-        if intersection:
-            raise ValidationError('Enrolled and requesting students groups should not intersect.')
-        super(Course, self).clean()
-
-    def save(self, *args, **kwargs):
-        self.full_clean()
-        super(Course, self).save(*args, **kwargs)
-
     def __str__(self):
         return self.title
 

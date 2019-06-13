@@ -13,25 +13,18 @@ def student_in_course(student, **kwargs):
 
 @login_required
 def manage_students(request, **kwargs):
-
+    course = Course.objects.get(pk=kwargs['pk'])
     if request.method == 'POST':
 
-        form = AddStudentForm(request.POST)#, **kwargs)
+        form = AddStudentForm(request.POST)  # , **kwargs)
 
         if form.is_valid():
 
             student = form.cleaned_data['student']
-            course = Course.objects.get(pk=kwargs['pk'])
 
-            print(student.user.first_name)
-            print(course.title)
-
-
-            # add pair course-student to DB
             course.students.add(student)
-            print(kwargs['pk'])
 
-
+    requesting = course.requesting.all()
 
     # then create new empty form
     user = request.user
@@ -39,16 +32,10 @@ def manage_students(request, **kwargs):
 
     context = {
         'title': 'Add student to course',
-        'form': form
+        'form': form,
+        'requesting': requesting,
+        'course': course
     }
 
     context.update(append_sidebar(user))
     return render(request, 'system/manage_students.html', context)
-
-
-
-
-
-
-
-
