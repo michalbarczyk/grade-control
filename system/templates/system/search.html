@@ -5,7 +5,7 @@
         <input type="submit" value="Search">
     </form>
     {% for course in courses %}
-        <a class="article-link" href="{% url 'course-detail' pk=course.pk %}?position={{ position }}">
+        <a class="article-link">
             <div class="media content-section">
                 <div class="media-body">
                     <h2>{{ course.title }}</h2>
@@ -15,5 +15,27 @@
                 </div>
             </div>
         </a>
+        {% if is_student %}
+            <div class="form-group">
+                <form action="{% url 'update-requesting' pk=course.pk %}" method="POST">
+                    {% csrf_token %}
+
+                    {% if course in own_courses %}
+                        <button class="{{ leave_button.style }}" type="submit" >
+                            {{ leave_button.text }}
+                        </button>
+                    {% elif course in requested_courses %}
+                        <button class="{{ requested_button.style }}" type="submit" >
+                            {{ requested_button.text }}
+                        </button>
+                    {% else %}
+                        <button class="{{ join_button.style }}" type="submit">
+                            {{ join_button.text }}
+                        </button>
+                    {% endif %}
+                </form>
+            </div>
+        {% endif %}
+
     {% endfor %}
 {% endblock content %}
